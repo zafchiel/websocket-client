@@ -1,16 +1,17 @@
 "use client"
 
 import { FormEvent, useState } from "react"
-import { io } from "socket.io-client"
+import io from "socket.io-client"
+
+const socket = io("http://localhost:4000")
 
 export default function HomePage() {
   const [message, setMessage] = useState("")
-  const socket = io("http://localhost:3001")
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    socket.emit("chat message", message)
+    socket.emit("chat_message", message)
     setMessage("")
   }
 
