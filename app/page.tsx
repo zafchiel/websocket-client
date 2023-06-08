@@ -1,8 +1,9 @@
 "use client"
 
-import { FormEvent, useState } from "react"
+import { useSocketStore } from "@/lib/store"
+import { FormEvent, useEffect, useRef, useState } from "react"
+import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
-import { io, Socket } from "socket.io-client"
 import RoomsList from "@/components/RoomsList"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -14,18 +15,37 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-  "http://localhost:4000"
-)
-
 export default function HomePage() {
-  const [username, setUsername] = useState("")
+  const socket = useSocketStore((state) => state.socket)
   const [roomName, setRoomName] = useState("")
+
+  const { toast } = useToast()
+
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
   const router = useRouter()
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    if (!inputRef.current?.value) {
+      toast({
+        variant: "destructive",
+        title: "Please provide username",
+      })
+      inputRef.current?.focus()
+      return
+    }
+
+    if (!roomName) {
+      toast({
+        variant: "destructive",
+        title: "Please select room",
+      })
+      return
+    }
+
+    const username = inputRef.current?.value
 
     socket.emit("join_room", { username, roomName })
 
@@ -33,16 +53,11 @@ export default function HomePage() {
   }
 
   return (
-    <main className="flex h-screen w-full items-center justify-center">
-      <RoomsList socket={socket} />
-      <div className="flex flex-col text-black">
-        <form onSubmit={handleSubmit}>
-          <Input
-            type="text"
-            placeholder="Enter your name"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+    <main className="flex h-screen w-full items-center justify-around">
+      <RoomsList />
+      <section className=" text-black">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+          <Input type="text" placeholder="Enter your name" ref={inputRef} />
           <Select onValueChange={(field) => setRoomName(field)}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Rooms" />
@@ -57,7 +72,7 @@ export default function HomePage() {
             Join
           </Button>
         </form>
-      </div>
+      </section>
     </main>
   )
 }
