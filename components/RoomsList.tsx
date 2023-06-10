@@ -1,13 +1,18 @@
 import { useSocketStore } from "@/lib/store"
-import { useEffect } from "react"
+import { useEffect, useState, Dispatch, SetStateAction } from "react"
 
-export default function RoomsList() {
+type Props = {
+  setRoomName: Dispatch<SetStateAction<string>>
+}
+
+export default function RoomsList({ setRoomName }: Props) {
   const socket = useSocketStore((state) => state.socket)
+  const [roomsList, setRoomsList] = useState<string[]>([])
 
   useEffect(() => {
     socket.on("receive_rooms", async (data) => {
       const { rooms } = await data
-      console.log(rooms)
+      setRoomsList(rooms)
     })
   }, [socket])
 
@@ -18,12 +23,11 @@ export default function RoomsList() {
       </div>
       <div>
         <ul>
-          <li>ROOM NAME</li>
-          <li>ROOM NAME</li>
-          <li>ROOM NAME</li>
-          <li>ROOM NAME</li>
-          <li>ROOM NAME</li>
-          <li>ROOM NAME</li>
+          {roomsList.map((room) => (
+            <li key={room} onClick={() => setRoomName(room)}>
+              {room}
+            </li>
+          ))}
         </ul>
       </div>
     </section>

@@ -14,13 +14,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useTheme } from "next-themes"
 import ThemeSwitch from "@/components/ui/theme-switch"
 
 export default function HomePage() {
   const socket = useSocketStore((state) => state.socket)
-  const [roomName, setRoomName] = useState("")
-  const { theme, setTheme } = useTheme()
+  const [roomName, setRoomName] = useState("light")
 
   const { toast } = useToast()
 
@@ -60,18 +58,21 @@ export default function HomePage() {
       <div className="fixed left-5 top-5 ">
         <ThemeSwitch />
       </div>
-      <RoomsList />
+      <RoomsList setRoomName={setRoomName} />
       <section className=" text-black">
         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
           <Input type="text" placeholder="Enter your name" ref={inputRef} />
-          <Select onValueChange={(field) => setRoomName(field)}>
-            <SelectTrigger className="w-full">
+          <Select
+            value={roomName}
+            defaultValue="light"
+            onValueChange={(field) => setRoomName(field)}
+          >
+            <SelectTrigger className="w-full text-gray-500">
               <SelectValue placeholder="Rooms" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="light">Light</SelectItem>
               <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
             </SelectContent>
           </Select>
           <Button type="submit" className="w-full">
