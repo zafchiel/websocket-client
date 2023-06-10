@@ -1,6 +1,8 @@
-import "./globals.css"
 import { Inter } from "next/font/google"
 import { Toaster } from "@/components/ui/toaster"
+import ThemeProviderWrapper from "@/components/ThemeProvider"
+
+import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -15,10 +17,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        {children}
-        <Toaster />
+        <ThemeProviderWrapper>
+          {children}
+          <Toaster />
+        </ThemeProviderWrapper>
       </body>
     </html>
   )

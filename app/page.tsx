@@ -1,7 +1,7 @@
 "use client"
 
 import { useSocketStore } from "@/lib/store"
-import { FormEvent, useEffect, useRef, useState } from "react"
+import { FormEvent, useRef, useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
 import RoomsList from "@/components/RoomsList"
@@ -14,10 +14,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useTheme } from "next-themes"
+import { Toggle } from "@/components/ui/toggle"
+import { Sun, Moon } from "lucide-react"
 
 export default function HomePage() {
   const socket = useSocketStore((state) => state.socket)
   const [roomName, setRoomName] = useState("")
+  const { theme, setTheme } = useTheme()
 
   const { toast } = useToast()
 
@@ -54,6 +58,16 @@ export default function HomePage() {
 
   return (
     <main className="flex h-screen w-full items-center justify-around">
+      <div className="fixed left-5 top-5 ">
+        <Toggle
+          variant="outline"
+          onClick={() => {
+            theme === "dark" ? setTheme("light") : setTheme("dark")
+          }}
+        >
+          {theme === "dark" ? <Moon /> : <Sun />}
+        </Toggle>
+      </div>
       <RoomsList />
       <section className=" text-black">
         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
