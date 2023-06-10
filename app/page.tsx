@@ -1,7 +1,7 @@
 "use client"
 
 import { useSocketStore } from "@/lib/store"
-import { FormEvent, useRef, useState } from "react"
+import { FormEvent, useRef, useEffect, useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
 import RoomsList from "@/components/RoomsList"
@@ -19,6 +19,7 @@ import ThemeSwitch from "@/components/ui/theme-switch"
 export default function HomePage() {
   const socket = useSocketStore((state) => state.socket)
   const [roomName, setRoomName] = useState("light")
+  const [roomsList, setRoomsList] = useState<string[]>([])
 
   const { toast } = useToast()
 
@@ -53,12 +54,21 @@ export default function HomePage() {
     router.push(`/room/${roomName}`)
   }
 
+  useEffect(() => {
+    socket.on("receive_rooms", async (data) => {
+      const { rooms } = await data
+      setRoomsList(rooms)
+    })
+  }, [socket])
+
   return (
     <main className="flex h-screen w-full items-center justify-around">
       <div className="fixed left-5 top-5 ">
         <ThemeSwitch />
       </div>
-      <RoomsList setRoomName={setRoomName} />
+      <div className="min-h-[400px]">
+        <RoomsList setRoomName={setRoomName} />
+      </div>
       <section className=" text-black">
         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
           <Input type="text" placeholder="Enter your name" ref={inputRef} />
@@ -71,8 +81,11 @@ export default function HomePage() {
               <SelectValue placeholder="Rooms" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
+              {roomsList.map((room) => (
+                <SelectItem key={room} value={room}>
+                  {room}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <Button type="submit" className="w-full">

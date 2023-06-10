@@ -17,19 +17,19 @@ export default function RoomsList({ setRoomName }: Props) {
   }, [socket])
 
   return (
-    <section className="flex h-screen flex-col items-center justify-center gap-2">
+    <section className="flex flex-col items-center justify-start gap-2">
       <div>
         <h2>Rooms List</h2>
       </div>
-      <div>
-        <ul>
-          {roomsList.map((room) => (
-            <li key={room} onClick={() => setRoomName(room)}>
-              {room}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {roomsList.map((room) => (
+        <div
+          key={room}
+          onClick={() => setRoomName(room)}
+          className="cursor-pointer rounded-md border p-1"
+        >
+          {room}
+        </div>
+      ))}
     </section>
   )
 }
