@@ -1,6 +1,6 @@
 "use client"
 
-import { useSocketStore } from "@/lib/store"
+import { useSocketStore, useRoomsStore } from "@/lib/store"
 import { FormEvent, useRef, useEffect, useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
@@ -18,6 +18,7 @@ import ThemeSwitch from "@/components/ui/theme-switch"
 
 export default function HomePage() {
   const socket = useSocketStore((state) => state.socket)
+  const updateRooms = useRoomsStore((state) => state.updateRooms)
   const [roomName, setRoomName] = useState("light")
   const [roomsList, setRoomsList] = useState<string[]>([])
 
@@ -58,6 +59,7 @@ export default function HomePage() {
     socket.on("receive_rooms", async (data) => {
       const { rooms } = await data
       setRoomsList(rooms)
+      updateRooms(rooms)
     })
   }, [socket])
 

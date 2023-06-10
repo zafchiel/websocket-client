@@ -6,11 +6,11 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
   "http://localhost:4000"
 )
 
-interface BearState {
+interface SocketState {
   socket: Socket
 }
 
-export const useSocketStore = create<BearState>()(
+export const useSocketStore = create<SocketState>()(
   devtools(
     persist(
       (set, get) => ({
@@ -22,3 +22,13 @@ export const useSocketStore = create<BearState>()(
     )
   )
 )
+
+interface RoomsState {
+  roomsList: string[]
+  updateRooms: (rooms: string[]) => void
+}
+
+export const useRoomsStore = create<RoomsState>()((set) => ({
+  roomsList: [],
+  updateRooms: (rooms) => set((state) => ({ ...state, roomsList: rooms })),
+}))
