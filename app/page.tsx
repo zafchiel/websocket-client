@@ -15,8 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useTheme } from "next-themes"
-import { Toggle } from "@/components/ui/toggle"
-import { Sun, Moon } from "lucide-react"
+import ThemeSwitch from "@/components/ui/theme-switch"
 
 export default function HomePage() {
   const socket = useSocketStore((state) => state.socket)
@@ -59,14 +58,7 @@ export default function HomePage() {
   return (
     <main className="flex h-screen w-full items-center justify-around">
       <div className="fixed left-5 top-5 ">
-        <Toggle
-          variant="outline"
-          onClick={() => {
-            theme === "dark" ? setTheme("light") : setTheme("dark")
-          }}
-        >
-          {theme === "dark" ? <Moon /> : <Sun />}
-        </Toggle>
+        <ThemeSwitch />
       </div>
       <RoomsList />
       <section className=" text-black">
