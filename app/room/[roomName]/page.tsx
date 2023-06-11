@@ -13,6 +13,7 @@ function RoomPage({ params: { roomName } }: Props) {
   const [roomUsers, setRoomUsers] = useState<User[]>([])
 
   useEffect(() => {
+    console.log("acd")
     socket.on("welcome_message", async (data) => {
       await data
       setUsername(data.username)
@@ -25,6 +26,7 @@ function RoomPage({ params: { roomName } }: Props) {
 
     socket.on("room_users", async (data) => {
       await data
+      console.log(data)
       setRoomUsers(data)
     })
   }, [socket])

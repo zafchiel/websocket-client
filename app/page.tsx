@@ -73,13 +73,18 @@ export default function HomePage() {
       </div>
       <section className=" text-black">
         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-          <Input type="text" placeholder="Enter your name" ref={inputRef} />
+          <Input
+            type="text"
+            placeholder="Enter your name"
+            ref={inputRef}
+            className="text-primary"
+          />
           <Select
             value={roomName}
             defaultValue="light"
             onValueChange={(field) => setRoomName(field)}
           >
-            <SelectTrigger className="w-full text-gray-500">
+            <SelectTrigger className="w-full text-primary">
               <SelectValue placeholder="Rooms" />
             </SelectTrigger>
             <SelectContent>

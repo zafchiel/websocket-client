@@ -1,7 +1,6 @@
 interface ServerToClientEvents {
-  noArg: () => void
-  basicEmit: (a: number, b: string, c: Buffer) => void
-  withAck: (d: string, callback: (e: number) => void) => void
+  on(event: string, callback: (data: any) => void)
+  emit(event: string, data: any)
 }
 
 interface ClientToServerEvents {
