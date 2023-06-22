@@ -7,7 +7,7 @@ import { Sun, Moon } from "lucide-react"
 
 const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
@@ -22,10 +22,10 @@ const ThemeSwitch = () => {
     <Toggle
       variant="outline"
       onClick={() => {
-        theme === "dark" ? setTheme("light") : setTheme("dark")
+        resolvedTheme === "dark" ? setTheme("light") : setTheme("dark")
       }}
     >
-      {theme === "dark" ? <Moon /> : <Sun />}
+      {resolvedTheme === "dark" ? <Moon /> : <Sun />}
     </Toggle>
   )
 }
