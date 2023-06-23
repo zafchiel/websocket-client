@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import ThemeSwitch from "@/components/ui/theme-switch"
+import BubbleWrapper from "@/components/BubbleWrapper"
 
 export default function HomePage() {
   const socket = useSocketStore((state) => state.socket)
@@ -64,42 +65,45 @@ export default function HomePage() {
   }, [socket])
 
   return (
-    <main className="flex h-screen w-full items-center justify-around">
-      <div className="fixed left-5 top-5 ">
-        <ThemeSwitch />
-      </div>
-      <div className="min-h-[400px]">
-        <RoomsList setRoomName={setRoomName} />
-      </div>
-      <section className=" text-black">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-          <Input
-            type="text"
-            placeholder="Enter your name"
-            ref={inputRef}
-            className="text-primary"
-          />
-          <Select
-            value={roomName}
-            defaultValue="light"
-            onValueChange={(field) => setRoomName(field)}
-          >
-            <SelectTrigger className="w-full text-primary">
-              <SelectValue placeholder="Rooms" />
-            </SelectTrigger>
-            <SelectContent>
-              {roomsList.map((room) => (
-                <SelectItem key={room} value={room}>
-                  {room}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Button type="submit" className="w-full">
-            Join
-          </Button>
-        </form>
-      </section>
-    </main>
+    <>
+      <BubbleWrapper />
+      <main className="flex h-screen w-full items-center justify-around">
+        <div className="fixed left-5 top-5 ">
+          <ThemeSwitch />
+        </div>
+        <div className="min-h-[400px]">
+          <RoomsList setRoomName={setRoomName} />
+        </div>
+        <section className=" text-black">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+            <Input
+              type="text"
+              placeholder="Enter your name"
+              ref={inputRef}
+              className="text-primary"
+            />
+            <Select
+              value={roomName}
+              defaultValue="light"
+              onValueChange={(field) => setRoomName(field)}
+            >
+              <SelectTrigger className="w-full text-primary">
+                <SelectValue placeholder="Rooms" />
+              </SelectTrigger>
+              <SelectContent>
+                {roomsList.map((room) => (
+                  <SelectItem key={room} value={room}>
+                    {room}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button type="submit" className="w-full">
+              Join
+            </Button>
+          </form>
+        </section>
+      </main>
+    </>
   )
 }
