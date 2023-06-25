@@ -1,10 +1,17 @@
 "use client"
 
-import { MutableRefObject, useEffect, useRef } from "react"
+import { ReactNode, useEffect, useRef, createContext } from "react"
 import styles from "./cursor.module.css"
-import { EventEmitter } from "stream"
 
-export default function CustomCursor() {
+export interface CursorEventsContextInterface {
+  mouseOverEvent: () => void
+  mouseOutEvent: () => void
+}
+
+export const CursorEventsContext =
+  createContext<CursorEventsContextInterface | null>(null)
+
+export default function CustomCursor({ children }: { children: ReactNode }) {
   const dot = useRef<HTMLDivElement | null>(null)
   const dotOutline = useRef<HTMLDivElement | null>(null)
 
@@ -46,10 +53,13 @@ export default function CustomCursor() {
 
   const mouseOverEvent = () => {
     cursorEnlarged.current = true
+
     toggleCursorEnlargment()
   }
   const mouseOutEvent = () => {
     cursorEnlarged.current = false
+    cursorVisible.current = false
+
     toggleCursorEnlargment()
   }
   const mouseEnterEvent = () => {
@@ -105,9 +115,15 @@ export default function CustomCursor() {
   }, [])
 
   return (
-    <>
+    <CursorEventsContext.Provider
+      value={{
+        mouseOverEvent,
+        mouseOutEvent,
+      }}
+    >
       <div className={styles.outline} ref={dotOutline}></div>
       <div className={styles.dot} ref={dot}></div>
-    </>
+      {children}
+    </CursorEventsContext.Provider>
   )
 }

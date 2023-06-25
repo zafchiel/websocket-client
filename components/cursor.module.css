@@ -2,7 +2,8 @@
 .outline {
   pointer-events: none;
   mix-blend-mode: difference;
-  position: absolute;
+  position: fixed;
+  z-index: 99;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

@@ -2,6 +2,7 @@ import { Inter } from "next/font/google"
 import { Toaster } from "@/components/ui/toaster"
 import ThemeProviderWrapper from "@/components/ThemeProvider"
 import CustomCursor from "@/components/CustomCursor"
+import { cn } from "@/lib/utils"
 
 import "./globals.css"
 
@@ -19,10 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={cn(inter.className, `overflow-hidden`)}>
         <ThemeProviderWrapper>
-          {children}
-          <CustomCursor />
+          <CustomCursor>{children}</CustomCursor>
           <Toaster />
         </ThemeProviderWrapper>
       </body>
