@@ -3,8 +3,8 @@
   border-radius: 100%;
   position: absolute;
   right: 100%;
-  width: max(300px, 30vw);
-  height: max(300px, 30vw);
+  width: max(200px, 30vw);
+  height: max(200px, 30vw);
   animation: wave 2s ease-in-out infinite;
 }
 
