@@ -6,7 +6,6 @@
   width: max(300px, 30vw);
   height: max(300px, 30vw);
   animation: wave 2s ease-in-out infinite;
-  mix-blend-mode: color-dodge;
 }
 
 @keyframes wave {

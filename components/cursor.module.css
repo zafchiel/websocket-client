@@ -1,0 +1,24 @@
+.dot,
+.outline {
+  pointer-events: none;
+  mix-blend-mode: difference;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #f1f2f3;
+}
+
+.outline {
+  width: 2rem;
+  height: 2rem;
+  background-color: #a3a3a3;
+}

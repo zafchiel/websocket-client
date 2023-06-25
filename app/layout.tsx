@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google"
 import { Toaster } from "@/components/ui/toaster"
 import ThemeProviderWrapper from "@/components/ThemeProvider"
+import CustomCursor from "@/components/CustomCursor"
 
 import "./globals.css"
 
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProviderWrapper>
           {children}
+          <CustomCursor />
           <Toaster />
         </ThemeProviderWrapper>
       </body>
