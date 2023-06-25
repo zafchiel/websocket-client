@@ -28,8 +28,8 @@ const ThemeSwitch = () => {
 
   return (
     <Toggle
-      onMouseOver={cursorEvents.mouseOverEvent}
-      onMouseOut={cursorEvents.mouseOutEvent}
+      onMouseEnter={cursorEvents.mouseOverEvent}
+      onMouseLeave={cursorEvents.mouseOutEvent}
       variant="outline"
       onClick={() => {
         resolvedTheme === "dark" ? setTheme("light") : setTheme("dark")

@@ -62,14 +62,6 @@ export default function CustomCursor({ children }: { children: ReactNode }) {
 
     toggleCursorEnlargment()
   }
-  const mouseEnterEvent = () => {
-    cursorVisible.current = true
-    toggleCursorVisibility()
-  }
-  const mouseLeaveEvent = () => {
-    cursorVisible.current = false
-    toggleCursorVisibility()
-  }
 
   const mouseMoveEvent = (e: MouseEvent) => {
     cursorVisible.current = true
@@ -98,8 +90,6 @@ export default function CustomCursor({ children }: { children: ReactNode }) {
     document.addEventListener("mousedown", mouseOverEvent)
     document.addEventListener("mouseup", mouseOutEvent)
     document.addEventListener("mousemove", mouseMoveEvent)
-    document.addEventListener("mouseenter", mouseEnterEvent)
-    document.addEventListener("mouseleave", mouseLeaveEvent)
 
     outlineAnimation()
 
@@ -107,8 +97,6 @@ export default function CustomCursor({ children }: { children: ReactNode }) {
       document.removeEventListener("mousedown", mouseOverEvent)
       document.removeEventListener("mouseup", mouseOutEvent)
       document.removeEventListener("mousemove", mouseMoveEvent)
-      document.removeEventListener("mouseenter", mouseEnterEvent)
-      document.removeEventListener("mouseleave", mouseLeaveEvent)
 
       cancelAnimationFrame(requestRef.current as number)
     }
