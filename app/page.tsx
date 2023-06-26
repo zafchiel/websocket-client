@@ -1,11 +1,7 @@
 "use client"
 
 import { useSocketStore, useRoomsStore } from "@/lib/store"
-import { FormEvent, useRef, useEffect, useState, useContext } from "react"
-import {
-  CursorEventsContext,
-  CursorEventsContextInterface,
-} from "@/components/CustomCursor"
+import { FormEvent, useRef, useEffect, useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
 import RoomsList from "@/components/RoomsList"
@@ -25,10 +21,6 @@ export default function HomePage() {
   const updateRooms = useRoomsStore((state) => state.updateRooms)
   const [roomName, setRoomName] = useState("light")
   const [roomsList, setRoomsList] = useState<string[]>([])
-
-  const cursorEvents = useContext(
-    CursorEventsContext
-  ) as CursorEventsContextInterface
 
   const { toast } = useToast()
 
@@ -102,12 +94,7 @@ export default function HomePage() {
                 ))}
               </SelectContent>
             </Select>
-            <Button
-              type="submit"
-              className="w-full"
-              onMouseOver={cursorEvents.mouseOverEvent}
-              onMouseOut={cursorEvents.mouseOutEvent}
-            >
+            <Button type="submit" className="w-full">
               Join
             </Button>
           </form>
