@@ -2,12 +2,16 @@
 
 import { useSocketStore } from "@/lib/store"
 import { useEffect, useState } from "react"
+import { useSession } from "next-auth/react"
 
 type Props = {
   params: { roomName: string }
 }
 
 function RoomPage({ params: { roomName } }: Props) {
+  const { data: session } = useSession({
+    required: true,
+  })
   const socket = useSocketStore((state) => state.socket)
   const [username, setUsername] = useState("")
   const [roomUsers, setRoomUsers] = useState<User[]>([])

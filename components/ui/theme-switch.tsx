@@ -8,6 +8,7 @@ import {
 import { useTheme } from "next-themes"
 import { Toggle } from "@/components/ui/toggle"
 import { Sun, Moon } from "lucide-react"
+import { Skeleton } from "./skeleton"
 
 const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false)
@@ -23,7 +24,7 @@ const ThemeSwitch = () => {
   }, [])
 
   if (!mounted) {
-    return null
+    return <Skeleton className="h-10 w-10" />
   }
 
   return (

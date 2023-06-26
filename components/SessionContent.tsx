@@ -8,11 +8,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from "./ui/dropdown-menu"
+import { Skeleton } from "./ui/skeleton"
 import { Button } from "./ui/button"
 import Image from "next/image"
 
 export default function SessionContent() {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
+
+  if (status === "loading") {
+    return <Skeleton className="h-10 w-20" />
+  }
 
   if (!session) {
     return (
@@ -41,8 +46,12 @@ export default function SessionContent() {
               />
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem>{session?.user?.name}</DropdownMenuItem>
-          <DropdownMenuItem>{session?.user?.email}</DropdownMenuItem>
+          <DropdownMenuItem className="flex items-center justify-center">
+            {session?.user?.name}
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <p className="opacity-70">{session?.user?.email}</p>
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <Button className="w-full" onClick={() => signOut()}>
             Sign Out
