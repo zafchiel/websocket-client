@@ -4,10 +4,10 @@ import GoogleProvider from "next-auth/providers/google"
 
 const handler = NextAuth({
   providers: [
-    // RedditProvider({
-    //   clientId: process.env.REDDIT_CLIENT_ID as string,
-    //   clientSecret: process.env.REDDIT_CLIENT_SECRET as string,
-    // }),
+    RedditProvider({
+      clientId: process.env.REDDIT_CLIENT_ID as string,
+      clientSecret: process.env.REDDIT_CLIENT_SECRET as string,
+    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
