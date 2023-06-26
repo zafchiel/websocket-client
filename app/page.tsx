@@ -18,7 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import ThemeSwitch from "@/components/ui/theme-switch"
 import BubbleWrapper from "@/components/BubbleWrapper"
 
 export default function HomePage() {
@@ -76,9 +75,6 @@ export default function HomePage() {
     <>
       <BubbleWrapper />
       <main className="flex h-screen w-full items-center justify-around">
-        <div className="fixed left-5 top-5 ">
-          <ThemeSwitch />
-        </div>
         <div className="min-h-[400px]">
           <RoomsList setRoomName={setRoomName} />
         </div>
