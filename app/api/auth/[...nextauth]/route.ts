@@ -3,11 +3,12 @@ import RedditProvider from "next-auth/providers/reddit"
 import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
+import { Adapter } from "next-auth/adapters"
 
 const prisma = new PrismaClient()
 
 const handler = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  adapter: <Adapter>PrismaAdapter(prisma),
   providers: [
     RedditProvider({
       clientId: process.env.REDDIT_CLIENT_ID as string,
