@@ -30,5 +30,15 @@ interface RoomsState {
 
 export const useRoomsStore = create<RoomsState>()((set) => ({
   roomsList: [],
-  updateRooms: (rooms) => set((state) => ({ ...state, roomsList: rooms })),
+  updateRooms: (rooms) => set({ roomsList: rooms }),
+}))
+
+interface SelectedRoom {
+  selectedRoom: string
+  selectRoom: (room: string) => void
+}
+
+export const useSelectedRoom = create<SelectedRoom>()((set) => ({
+  selectedRoom: "",
+  selectRoom: (room) => set({ selectedRoom: room }),
 }))

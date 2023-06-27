@@ -1,11 +1,11 @@
-import { useRoomsStore } from "@/lib/store"
-import { Dispatch, SetStateAction } from "react"
+"use client"
 
-type Props = {
-  setRoomName: Dispatch<SetStateAction<string>>
-}
+import { useRoomsStore, useSelectedRoom } from "@/lib/store"
+import { cn } from "@/lib/utils"
 
-export default function RoomsList({ setRoomName }: Props) {
+export default function RoomsList() {
+  const selectRoom = useSelectedRoom((state) => state.selectRoom)
+  const selectedRoom = useSelectedRoom((state) => state.selectedRoom)
   const rooms = useRoomsStore((state) => state.roomsList)
 
   return (
@@ -13,13 +13,18 @@ export default function RoomsList({ setRoomName }: Props) {
       <div>
         <h2>Rooms List</h2>
       </div>
-      {rooms.map((room) => (
+      {rooms.map((room, index) => (
         <div
-          key={room}
-          onClick={() => setRoomName(room)}
-          className="cursor-pointer rounded-md border p-1"
+          key={index}
+          onClick={() => selectRoom(room)}
+          className={cn(
+            "felx w-24 cursor-pointer items-center justify-center rounded-md border p-1 font-bold uppercase tracking-wide",
+            {
+              "bg-slate-400": room === selectedRoom,
+            }
+          )}
         >
-          {room}
+          <p className="text-center">{room}</p>
         </div>
       ))}
     </section>

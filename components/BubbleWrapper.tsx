@@ -1,3 +1,5 @@
+"use client"
+
 import { MouseEvent, useEffect, useRef } from "react"
 import styles from "./bubbles.module.css"
 
