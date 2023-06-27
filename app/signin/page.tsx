@@ -2,8 +2,15 @@ import SignInButton from "@/components/SignInButton"
 import Google from "@/assets/icons/Google"
 import Reddit from "@/assets/icons/Reddit"
 import SignInEmail from "@/components/SignInEmail"
+import { redirect } from "next/navigation"
+import { getServerSession } from "next-auth"
+import { authOptions } from "../api/auth/[...nextauth]/route"
 
-export default function SignInPage() {
+export default async function SignInPage() {
+  const session = await getServerSession(authOptions)
+
+  if (session) redirect("/")
+
   return (
     <main className="flex h-screen w-full items-center justify-center">
       <section className="flex w-52 flex-col items-center justify-center gap-5 md:w-full md:max-w-2xl">

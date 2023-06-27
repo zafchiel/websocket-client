@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import NextAuth, { NextAuthOptions } from "next-auth"
 import RedditProvider from "next-auth/providers/reddit"
 import GoogleProvider from "next-auth/providers/google"
 import EmailProvider from "next-auth/providers/email"
@@ -8,7 +8,7 @@ import { Adapter } from "next-auth/adapters"
 
 const prisma = new PrismaClient()
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   adapter: <Adapter>PrismaAdapter(prisma),
   providers: [
     RedditProvider({
@@ -34,6 +34,8 @@ const handler = NextAuth({
   pages: {
     signIn: "/signin",
   },
-})
+}
+
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }
