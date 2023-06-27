@@ -1,7 +1,7 @@
 "use client"
 
 import { useSocketStore, useRoomsStore, useSelectedRoom } from "@/lib/store"
-import { FormEvent, useEffect, useRef } from "react"
+import { FormEvent, useEffect, useRef, useContext } from "react"
 import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { CursorEventsContext } from "./CustomCursor"
 
 export default function PlayerSection() {
   const socket = useSocketStore((state) => state.socket)
@@ -20,6 +21,8 @@ export default function PlayerSection() {
   const updateRooms = useRoomsStore((state) => state.updateRooms)
   const selectedRoom = useSelectedRoom((state) => state.selectedRoom)
   const selectRoom = useSelectedRoom((state) => state.selectRoom)
+
+  const cursorEvents = useContext(CursorEventsContext)
 
   const { toast } = useToast()
 
@@ -75,7 +78,11 @@ export default function PlayerSection() {
           defaultValue="light"
           onValueChange={(field) => selectRoom(field)}
         >
-          <SelectTrigger className="w-full text-primary">
+          <SelectTrigger
+            className="w-full text-primary"
+            onMouseEnter={cursorEvents?.mouseOverEvent}
+            onMouseLeave={cursorEvents?.mouseOutEvent}
+          >
             <SelectValue placeholder="Rooms" />
           </SelectTrigger>
           <SelectContent>
