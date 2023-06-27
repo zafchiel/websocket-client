@@ -12,15 +12,21 @@ export default function SignInEmail() {
   ]
 
   return (
-    <div className="w-full">
-      <Input
-        className="mb-2 w-full"
-        value={email}
-        onChange={handleChange}
-        type="email"
-        placeholder="example@example.com"
-      />
-      <SignInEmailButton email={email} />
-    </div>
+    <>
+      <div className="relative w-full">
+        <div className="absolute top-full mt-2 rounded-md bg-red-500 p-2 font-bold tracking-wide">
+          <p>it will not work, I need a domain</p>
+          <p>Sign in with OAuth instead</p>
+        </div>
+        <Input
+          className="mb-2 w-full"
+          value={email}
+          onChange={handleChange}
+          type="email"
+          placeholder="example@example.com"
+        />
+        <SignInEmailButton email={email} />
+      </div>
+    </>
   )
 }
