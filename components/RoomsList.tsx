@@ -16,22 +16,29 @@ export default function RoomsList() {
       <div>
         <h2>Rooms List</h2>
       </div>
-      {rooms.map((room, index) => (
-        <div
-          onMouseEnter={cursorEvents?.mouseOverEvent}
-          onMouseLeave={cursorEvents?.mouseOutEvent}
-          key={index}
-          onClick={() => selectRoom(room)}
-          className={cn(
-            "felx w-24 cursor-pointer items-center justify-center rounded-md border p-1 font-bold uppercase tracking-wide hover:bg-slate-600",
-            {
-              "bg-slate-400": room === selectedRoom,
-            }
-          )}
-        >
-          <p className="text-center">{room}</p>
+
+      {rooms.length == 0 ? (
+        <div>
+          <p>There are no rooms left :C</p>
         </div>
-      ))}
+      ) : (
+        rooms.map((room, index) => (
+          <div
+            onMouseEnter={cursorEvents?.mouseOverEvent}
+            onMouseLeave={cursorEvents?.mouseOutEvent}
+            key={index}
+            onClick={() => selectRoom(room)}
+            className={cn(
+              "felx w-24 cursor-pointer items-center justify-center rounded-md border p-1 font-bold uppercase tracking-wide hover:bg-slate-600",
+              {
+                "bg-slate-400": room === selectedRoom,
+              }
+            )}
+          >
+            <p className="text-center">{room}</p>
+          </div>
+        ))
+      )}
     </section>
   )
 }
