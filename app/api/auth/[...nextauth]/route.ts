@@ -19,17 +19,18 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
-    EmailProvider({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: process.env.EMAIL_SERVER_PORT,
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
-        },
-      },
-      from: process.env.EMAIL_FROM,
-    }),
+    // ----------- NEED DOMAIN NAME FOR IT TO WORK ---------------- //
+    //   EmailProvider({
+    //     server: {
+    //       host: process.env.EMAIL_SERVER_HOST as string,
+    //       port: process.env.EMAIL_SERVER_PORT as string,
+    //       auth: {
+    //         user: process.env.EMAIL_SERVER_USER as string,
+    //         pass: process.env.EMAIL_SERVER_PASSWORD as string,
+    //       },
+    //     },
+    //     from: process.env.EMAIL_FROM as string,
+    //   }),
   ],
   pages: {
     signIn: "/signin",
