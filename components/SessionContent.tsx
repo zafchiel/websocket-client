@@ -15,9 +15,9 @@ import Image from "next/image"
 export default function SessionContent() {
   const { data: session, status } = useSession()
 
-  if (status === "loading") {
-    return <Skeleton className="h-10 w-20" />
-  }
+  // if (status === "loading") {
+  //   return <Skeleton className="h-10 w-20" />
+  // }
 
   if (!session) {
     return (
