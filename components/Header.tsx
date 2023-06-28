@@ -6,7 +6,7 @@ import { Skeleton } from "./ui/skeleton"
 
 export default function Header() {
   return (
-    <div className="fixed inset-x-0 top-0 z-10 flex h-fit items-center justify-between p-5">
+    <div className="fixed inset-x-0 top-0 z-10 flex h-fit flex-wrap items-center justify-between gap-3 p-5">
       <Suspense fallback={<Skeleton className="h-10 w-10" />}>
         <ThemeSwitch />
       </Suspense>

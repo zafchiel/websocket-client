@@ -22,7 +22,9 @@ export default function SessionContent() {
   if (!session) {
     return (
       <>
-        <Button onClick={() => signIn()}>Sign In</Button>
+        <Button className="w-full sm:w-auto" onClick={() => signIn()}>
+          Sign In
+        </Button>
       </>
     )
   }
@@ -30,7 +32,7 @@ export default function SessionContent() {
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger className="w-full sm:w-auto" asChild>
           <Button variant="outline">Profile</Button>
         </DropdownMenuTrigger>
 
